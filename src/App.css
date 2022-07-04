@@ -20,7 +20,7 @@ body{
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #d3d3d3;
+  background-color: #f2f0e4;
   position: relative;
 }
 .phone-container h1{
@@ -42,4 +42,9 @@ body{
 }
 .phone-container p span{
   font-weight: 500;
+}
+/* *********************Home**************************** */
+.home-container{
+  background-color: #f2f0e4;
+  height: 100vh;
 }

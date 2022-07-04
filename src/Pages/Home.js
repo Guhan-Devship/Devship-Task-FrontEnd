@@ -18,10 +18,10 @@ function Home() {
     })
   return (
     <>
-    <div className='container'>
-        <button className='btn btn-sm btn-danger mt-5' onClick={handleLogout}>Logout</button>
+    <div className='home-container'>
+        <button className='btn btn-sm btn-danger mt-5 mx-5' onClick={handleLogout}>Logout</button>
         <div className='text-center'>
-            <h1>Hi </h1>
+            <h1>Hi Users Welcome!</h1>
         </div>
     </div>
     </>

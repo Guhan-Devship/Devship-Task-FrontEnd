@@ -87,7 +87,7 @@ function Register() {
                         <input type="email" placeholder='Email' name="email" onChange={(e) => handleChange(e)} />
                     </div>
                     <div class="form-group mb-2">
-                        <input type="text" placeholder='mobile' name="mobile" onChange={(e) => handleChange(e)} min="10" />
+                        <input type="text" placeholder='Mobile' name="mobile" onChange={(e) => handleChange(e)} min="10" />
                     </div>
                     <div class="form-group mb-2">
                         <input type="password" placeholder='Password' name="password" onChange={(e) => handleChange(e)} />
