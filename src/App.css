@@ -1,19 +1,21 @@
-:root{
-  --textColor:rgb(65,64,66);
-  --btnbgColor:#3287b7;
+:root {
+  --textColor: rgb(65, 64, 66);
+  --btnbgColor: #3287b7;
 }
-html{
+
+html {
   scroll-behavior: smooth;
 }
 
-body{
-  margin:0;
+body {
+  margin: 0;
   padding: 0;
   font-size: 1em;
   font-family: "Neutrif Pro";
 }
+
 /* ---------------Login--------------- */
-.phone-container{
+.phone-container {
   padding: 3em 1.7em;
   display: flex;
   flex-direction: column;
@@ -23,28 +25,98 @@ body{
   background-color: #f2f0e4;
   position: relative;
 }
-.phone-container h1{
+
+.phone-container h1 {
   font-size: 1.3em;
   font-weight: 500;
   font-style: normal;
   margin-bottom: 0;
-  color:var(--textColor) ;
+  color: var(--textColor);
 }
-.phone-container p{
+
+.phone-container p {
   font-size: 0.755em;
   font-weight: 400;
   font-style: normal;
   margin: 0;
   width: 100%;
   max-width: 270px;
-  text-align:center;
-  justify-content:space-evenly
+  text-align: center;
+  justify-content: space-evenly
 }
-.phone-container p span{
+
+.phone-container p span {
   font-weight: 500;
 }
+
 /* *********************Home**************************** */
-.home-container{
+.home-container {
   background-color: #f2f0e4;
   height: 100vh;
+}
+.nav-wrap{
+  display: flex;
+  background-color: rgb(77, 77, 77);
+  width: 240px;
+  height: 90vh;
+  justify-content: space-evenly;
+}
+.main-nav{
+  display: flex;
+  justify-content:space-evenly;
+}
+.sidebar-li{
+  text-decoration: none;
+  list-style: none;
+  list-style-type: none;
+  font-size: 20px;
+  margin-top: 20px;
+  color: bisque;
+  border: 1px solid white;
+  padding: 2px 30px;
+  border-radius: 10px;
+}
+/* .sidebar-li:hover{
+  transform: scale(1.1);
+} */
+.sidebar-ul{
+  padding-left: 0px;
+}
+
+.container{
+  display: flex;
+  align-self: center;
+  justify-content: space-around;
+  align-content:center;
+  /* background: rgb(255, 255, 255); */
+}
+.todo-list{
+  background: rgb(248, 248, 248,0.80);
+  padding: 25px 30px;
+  width: 700px;
+  margin: 10px auto;
+  border-radius: 15px;
+  box-shadow: 10px 10px 0 rgba(14, 14, 14, 0.70);
+  font-size: 18px;
+  font-family: 'My Soul', cursive;
+  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Tapestry', cursive;
+}
+.look{
+  width: 70%!important;
+}
+.add-list{
+  align-content: flex-end;
+  font-size: 42px;
+  font-weight: 900;
+  cursor: pointer;
+  border-radius: 4px;
+  width: 15px;
+  text-align: center;
+  line-height: 1;
+}
+.list-content{
+  overflow: auto;
+  height: 320px;
 }

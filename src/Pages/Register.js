@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css'
+import 'react-toastify/dist/ReactToastify.css';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -34,7 +34,7 @@ function Register() {
                 toast.error(data.data.message, toastOptions);
             }
             if (data.data.message === "user added sucessfully") {
-                alert("Successfully created")
+                toast.success("SuccessFully Created", toastOptions);
                 navigate("/");
             }
         };
