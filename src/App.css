@@ -48,6 +48,10 @@ body {
 .phone-container p span {
   font-weight: 500;
 }
+.forgot-font{
+  font-size: 17px!important;
+  font-weight: 700!important;
+}
 
 /* *********************Home**************************** */
 .home-container {

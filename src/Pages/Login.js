@@ -67,7 +67,9 @@ function Login() {
                         <input type="password" placeholder='Password' name="password" onChange={(e) => handleChange(e)} />
                     </div>
                     <input type="submit" class="form-control btn btn-primary btn-sm mb-3" value={"Login"} />
-
+                    <div>
+                        <p className='forgot-font'><Link to={'/forgotPassword'}>Forgot password?</Link></p>
+                    </div>
                 </form>
                 <p>
                     By entering your data, you're agreeing to our <span>Terms of Service and Privacy Policy</span>.Thanks!

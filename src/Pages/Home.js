@@ -23,8 +23,9 @@ function Home() {
   const [value, setValue] = useState({
     list: "",
   });
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e ) => {
     e.preventDefault();
+    
     
     if (handleValidation()) {
       const { list } = value;
