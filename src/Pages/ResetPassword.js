@@ -27,8 +27,7 @@ function ResetPassword() {
                 toast.error(data.data.message, toastOptions);
             }
             if (data.data.status === true) {
-                navigate('/')
-                alert(data.data.message);
+                toast.success(data.data.message, toastOptions);
             }
         };
     };

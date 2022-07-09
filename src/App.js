@@ -7,6 +7,9 @@ import Register from './Pages/Register';
 import Home from './Pages/Home';
 import ResetPassword from './Pages/ResetPassword';
 import ForgotPassword from './Pages/ForgotPassword';
+import Mobile from './Pages/Mobile';
+import Search from './Pages/Search';
+import CartItem from './Pages/CartItem';
 
 function App() {
   return (
@@ -16,7 +19,10 @@ function App() {
         <Route path="/register" element={<Register/>} />
         <Route path="/resetpassword/:id/:token" element={<ResetPassword/>} />
         <Route path="/forgotPassword" element={<ForgotPassword/>} />
-        <Route path="/home" element={<Home/>} />
+        <Route path="/home" element={<Home/>}/>
+        <Route path="/view/:id" element={<Mobile/>}/>
+        <Route path="/search" element={<Search/>}/>
+        <Route path="/cart" element={<CartItem/>}/>
       </Routes>
     </BrowserRouter>
   );
