@@ -11,6 +11,7 @@ function CartList(props) {
     draggable: true,
     theme: "dark",
   };
+
   let handleDelete = async (id) => {
     try {
       let ask = window.confirm(
@@ -23,16 +24,18 @@ function CartList(props) {
           },
         });
         toast.success("Removed", toastOptions);
+        window.location.reload(false);
       }
     } catch (error) {
-      alert("Something went wrong");
+      console.log("Something went wrong");
     }
   };
+
   return (
     <>
       <div>
         <ul class="list-group">
-          <li class="list-group-item d-flex justify-content-between align-items-center">
+          <li class="list-group-item d-flex justify-content-between align-items-center li-style">
             <div class="ms-2 me-auto">
               {/* item name */}
               <div class="fw-bold">{props.list.title}</div>
@@ -42,6 +45,10 @@ function CartList(props) {
                 Rs{props.list.price}
               </span>
             </div>
+            <img
+              src={`http://localhost:8080/${props.list.image}`}
+              className="img-fluid cart-img"
+            />
             {/* button to remove item from the cart */}
             <button
               class="btn badge bg-danger rounded-pill"

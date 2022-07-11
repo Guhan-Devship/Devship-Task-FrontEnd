@@ -8,6 +8,11 @@ import Navbar from "./Navbar";
 function Mobile() {
   let params = useParams();
   let navigate = useNavigate();
+  function fetchData() {
+    if (!localStorage.getItem("myapptoken")) {
+      navigate("/");
+    }
+  }
   const [destination, setDestination] = useState("");
   const [product, setProduct] = useState([]);
   let getdata = async () => {
@@ -24,6 +29,7 @@ function Mobile() {
 
   useEffect(() => {
     getdata();
+    fetchData();
   }, []);
 
   const handleSearch = () => {

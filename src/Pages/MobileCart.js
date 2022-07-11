@@ -14,7 +14,12 @@ function MobileCart(props) {
     if (() => props.handlecart()) {
       const data = await axios.post(
         "http://localhost:8080/createCart",
-        props.productData
+        props.productData,
+        {
+          headers: {
+            Authorization: window.localStorage.getItem("myapptoken"),
+          },
+        }
       );
       if (data.data.message !== "added to cart") {
         toast.error(data.data.message, toastOptions);

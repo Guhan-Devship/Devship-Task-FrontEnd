@@ -1,29 +1,33 @@
-import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import Navbar from './Navbar';
-import sale from '../images/sale.png'
-import mobile from '../images/mobile.png'
-import shopping from '../images/shopping.png'
-import shoe from '../images/shoe.png'
-import HomeCard from './HomeCard';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
+import sale from "../images/sale.png";
+import mobile from "../images/mobile.png";
+import shopping from "../images/shopping.png";
+import shoe from "../images/shoe.png";
+import HomeCard from "./HomeCard";
+import axios from "axios";
 
 function Home() {
-  let navigate = useNavigate()
+  let navigate = useNavigate();
   function fetchData() {
     if (!localStorage.getItem("myapptoken")) {
       navigate("/");
     }
   }
-  const [product, setProduct] = useState([])
+  const [product, setProduct] = useState([]);
   let getdata = async () => {
-    const { data } = await axios.get("http://localhost:8080/getall");
+    const { data } = await axios.get("http://localhost:8080/getall", {
+      headers: {
+        Authorization: window.localStorage.getItem("myapptoken"),
+      },
+    });
     setProduct(data);
-  }
+  };
 
   useEffect(() => {
-    fetchData()
-    getdata()
+    fetchData();
+    getdata();
   }, []);
 
   return (
@@ -35,16 +39,13 @@ function Home() {
             <img className="img-fluid sale-img" src={sale} />
             <img className="img-fluid shop-img" src={shopping} />
           </div>
-          {
-            product.map((category)=>{
-              return <HomeCard category={category}/>
-            })
-          }
-          
+          {product.map((category) => {
+            return <HomeCard category={category} />;
+          })}
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
