@@ -28,7 +28,6 @@ function CartItem() {
   }, []);
 
   let total = 0;
-
   cart.map((e) => {
     return (total += e.offerPrice);
   });
