@@ -33,26 +33,28 @@ function MobileCart(props) {
     <div class="col mb-5">
       <div class="card h-100">
         {/* sale badge */}
-        <div class="badge bg-white text-dark position-absolute sale">Sale</div>
+        <div class="badge bg-dark text-white position-absolute sale p-1">
+          Sale
+        </div>
         {/* image */}
         <img
-          class="card-img-top"
+          class="card-img-top rounded"
           src={`http://localhost:8080/${props.productData.image}`}
           alt="..."
         />
         {/* product details */}
-        <div class="card-body p-4">
+        <div class="card-body p-1">
           <div class="text-center">
             <p class="fw-bolder title">{props.productData.title}</p>
             {/* strike the price */}
             <div>
               Original price:
               <span class="text-muted text-decoration-line-through">
-                {props.productData.price}
+                Rs {props.productData.price}
               </span>
               <br></br>
               <span>
-                <strong>Offer price: {props.productData.offerPrice} </strong>
+                <strong>Offer price: Rs {props.productData.offerPrice} </strong>
               </span>
             </div>
           </div>
