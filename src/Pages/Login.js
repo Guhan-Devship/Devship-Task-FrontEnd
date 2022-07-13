@@ -31,7 +31,7 @@ function Login() {
         window.localStorage.setItem("myapptoken", data.data.token);
         window.localStorage.setItem("user", data.data.user.name);
         window.localStorage.setItem("mobile", data.data.user.mobile);
-        navigate("/home");
+        navigate("/");
       }
     }
   };

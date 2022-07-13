@@ -37,7 +37,7 @@ function CartItem() {
     if (localStorage.getItem("myapptoken")) {
       setOpenModal(true);
     } else {
-      navigate("/");
+      navigate("/login");
     }
   };
 
@@ -52,19 +52,21 @@ function CartItem() {
             })}
           </div>
           {cart.length > 0 ? (
-            <div>
-              <h1 className="col-lg-12 text-center fs-4 mt-5">
-                Total({cart.length}): Rs {total}
-              </h1>
-            </div>
+            <>
+              <div>
+                <h1 className="col-lg-12 text-center fs-4 mt-5">
+                  Total({cart.length}): Rs {total}
+                </h1>
+              </div>
+              <button className="btn-primary btn-sm" onClick={handleClick}>
+                CheckOut
+              </button>
+            </>
           ) : (
             <div>
               <h1 className="col-lg-12 text-center">No Item in Cart</h1>
             </div>
           )}
-          <button className="btn-primary btn-sm" onClick={handleClick}>
-            CheckOut
-          </button>
         </div>
       </>
       {openModal && (

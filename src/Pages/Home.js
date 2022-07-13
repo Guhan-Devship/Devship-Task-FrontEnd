@@ -10,23 +10,13 @@ import axios from "axios";
 
 function Home() {
   let navigate = useNavigate();
-  function fetchData() {
-    if (!localStorage.getItem("myapptoken")) {
-      navigate("/");
-    }
-  }
   const [product, setProduct] = useState([]);
   let getdata = async () => {
-    const { data } = await axios.get("http://localhost:8080/getall", {
-      headers: {
-        Authorization: window.localStorage.getItem("myapptoken"),
-      },
-    });
+    const { data } = await axios.get("http://localhost:8080/getall");
     setProduct(data);
   };
 
   useEffect(() => {
-    fetchData();
     getdata();
   }, []);
 

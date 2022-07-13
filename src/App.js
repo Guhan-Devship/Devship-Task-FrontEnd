@@ -16,11 +16,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/resetpassword/:id/:token" element={<ResetPassword />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/view/:id" element={<Mobile />} />
         <Route path="/search" element={<Search />} />
         <Route path="/cart" element={<CartItem />} />

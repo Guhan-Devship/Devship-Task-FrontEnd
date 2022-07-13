@@ -8,28 +8,17 @@ import Navbar from "./Navbar";
 function Mobile() {
   let params = useParams();
   let navigate = useNavigate();
-  function fetchData() {
-    if (!localStorage.getItem("myapptoken")) {
-      navigate("/");
-    }
-  }
   const [destination, setDestination] = useState("");
   const [product, setProduct] = useState([]);
   let getdata = async () => {
     const { data } = await axios.get(
-      `http://localhost:8080/getallProduct?category=${params.id}`,
-      {
-        headers: {
-          Authorization: window.localStorage.getItem("myapptoken"),
-        },
-      }
+      `http://localhost:8080/getallProduct?category=${params.id}`
     );
     setProduct(data);
   };
 
   useEffect(() => {
     getdata();
-    fetchData();
   }, []);
 
   const handleSearch = () => {

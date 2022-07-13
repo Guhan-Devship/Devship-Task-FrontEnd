@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function MobileCart(props) {
+  let navigate = useNavigate();
   const toastOptions = {
     position: "bottom-right",
     autoClose: 8000,
@@ -11,22 +13,26 @@ function MobileCart(props) {
     theme: "dark",
   };
   const handleSubmit = async () => {
-    if (() => props.handlecart()) {
-      const data = await axios.post(
-        "http://localhost:8080/createCart",
-        props.productData,
-        {
-          headers: {
-            Authorization: window.localStorage.getItem("myapptoken"),
-          },
+    if (window.localStorage.getItem("myapptoken")) {
+      if (() => props.handlecart()) {
+        const data = await axios.post(
+          "http://localhost:8080/createCart",
+          props.productData,
+          {
+            headers: {
+              Authorization: window.localStorage.getItem("myapptoken"),
+            },
+          }
+        );
+        if (data.data.message !== "added to cart") {
+          toast.error(data.data.message, toastOptions);
         }
-      );
-      if (data.data.message !== "added to cart") {
-        toast.error(data.data.message, toastOptions);
+        if (data.data.message === "added to cart") {
+          toast.success("Added to cart", toastOptions);
+        }
       }
-      if (data.data.message === "added to cart") {
-        toast.success("Added to cart", toastOptions);
-      }
+    } else {
+      navigate("/login");
     }
   };
   return (

@@ -8,7 +8,7 @@ function CartList(props) {
   let navigate = useNavigate();
   function fetchData() {
     if (!localStorage.getItem("myapptoken")) {
-      navigate("/");
+      navigate("/login");
     }
   }
   const toastOptions = {
