@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import Navbar from "./Navbar";
+import { useNavigate } from "react-router-dom";
 
 function CartList(props) {
+  let navigate = useNavigate();
+  function fetchData() {
+    if (!localStorage.getItem("myapptoken")) {
+      navigate("/");
+    }
+  }
   const toastOptions = {
     position: "bottom-right",
     autoClose: 8000,
@@ -24,7 +31,7 @@ function CartList(props) {
           },
         });
         toast.success("Removed", toastOptions);
-        window.location.reload(false);
+        props.getdata();
       }
     } catch (error) {
       console.log("Something went wrong");
