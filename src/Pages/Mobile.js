@@ -8,8 +8,8 @@ import Navbar from "./Navbar";
 function Mobile() {
   let params = useParams();
   let navigate = useNavigate();
-  const [destination, setDestination] = useState("");
   const [product, setProduct] = useState([]);
+  const [serach, setSerach] = useState("");
   let getdata = async () => {
     const { data } = await axios.get(
       `http://localhost:8080/getallProduct?category=${params.id}`
@@ -20,11 +20,6 @@ function Mobile() {
   useEffect(() => {
     getdata();
   }, []);
-
-  const handleSearch = () => {
-    navigate("/search", { state: { destination } });
-  };
-
   const [cartitems, setCartItems] = useState([]);
   const [total, setTotal] = useState(0);
 
@@ -40,19 +35,19 @@ function Mobile() {
       <form class="text-center form-inline mx-5 mt-2">
         <input
           class="form-control mr-sm-2"
-          type="search"
-          onChange={(e) => setDestination(e.target.value.toLowerCase())}
+          type="text"
+          onChange={(e) => setSerach(e.target.value)}
           placeholder="Search"
           aria-label="Search"
         />
         <br />
-        <button
+        {/* <button
           class="btn btn-outline-success my-2 my-sm-0"
           onClick={handleSearch}
           type="submit"
         >
           Search
-        </button>
+        </button> */}
       </form>
       <div>
         <ol class="list-group list-group-numbered">
@@ -68,9 +63,20 @@ function Mobile() {
       <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
           <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            {product.map((card) => {
-              return <MobileCart productData={card} handleCart={handleCart} />;
-            })}
+            {product
+              .filter((card) => {
+                if (serach == "") {
+                  return card;
+                } else if (
+                  card.title.toLowerCase().includes(serach.toLowerCase())
+                )
+                  return card;
+              })
+              .map((card) => {
+                return (
+                  <MobileCart productData={card} handleCart={handleCart} />
+                );
+              })}
           </div>
         </div>
       </section>

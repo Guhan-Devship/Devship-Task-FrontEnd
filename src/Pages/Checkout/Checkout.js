@@ -5,8 +5,9 @@ import axios from "axios";
 function Checkout({ setOpen, cart, total }) {
   let user = localStorage.getItem("user");
   let mobile = localStorage.getItem("mobile");
-  console.log(cart, user);
 
+  // console.log(cart);
+  // console.log({ user });
   const handleSubmit = async () => {
     const data = await axios.post("http://localhost:8080/createOrder", cart, {
       headers: {
