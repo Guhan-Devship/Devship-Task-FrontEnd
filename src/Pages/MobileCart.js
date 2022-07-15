@@ -12,27 +12,24 @@ function MobileCart(props) {
     draggable: true,
     theme: "dark",
   };
+
   const handleSubmit = async () => {
-    if (window.localStorage.getItem("myapptoken")) {
-      if (() => props.handlecart()) {
-        const data = await axios.post(
-          "http://localhost:8080/createCart",
-          props.productData,
-          {
-            headers: {
-              Authorization: window.localStorage.getItem("myapptoken"),
-            },
-          }
-        );
-        if (data.data.message !== "added to cart") {
-          toast.error(data.data.message, toastOptions);
+    if (() => props.handlecart()) {
+      const data = await axios.post(
+        "http://localhost:8080/createCart",
+        props.productData,
+        {
+          headers: {
+            Authorization: window.localStorage.getItem("myapptoken"),
+          },
         }
-        if (data.data.message === "added to cart") {
-          toast.success("Added to cart", toastOptions);
-        }
+      );
+      if (data.data.message !== "added to cart") {
+        toast.error(data.data.message, toastOptions);
       }
-    } else {
-      navigate("/login");
+      if (data.data.message === "added to cart") {
+        toast.success("Added to cart", toastOptions);
+      }
     }
   };
   return (
@@ -68,12 +65,21 @@ function MobileCart(props) {
         {/* button */}
         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
           <div class="text-center">
-            <button
-              class="btn btn-outline-dark mt-auto"
-              onClick={() => handleSubmit()}
-            >
-              Add Cart
-            </button>
+            {localStorage.getItem("myapptoken") ? (
+              <button
+                class="btn btn-outline-dark mt-auto"
+                onClick={() => handleSubmit()}
+              >
+                Add Cart
+              </button>
+            ) : (
+              <button
+                onClick={() => props.handleCart(props.productData)}
+                class="btn btn-outline-dark mt-auto"
+              >
+                Add Cart
+              </button>
+            )}
           </div>
         </div>
       </div>

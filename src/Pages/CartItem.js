@@ -9,11 +9,7 @@ function CartItem() {
   let navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
   const [cart, setCart] = useState([]);
-  function fetchData() {
-    if (!localStorage.getItem("myapptoken")) {
-      navigate("/");
-    }
-  }
+  let token = localStorage.getItem("myapptoken");
 
   let getdata = async () => {
     const { data } = await axios.get("http://localhost:8080/getCart", {
@@ -24,15 +20,25 @@ function CartItem() {
     setCart(data);
   };
 
+  let storageData = () => {
+    if (!token) {
+      setCart(JSON.parse(localStorage.getItem("cartList")));
+    }
+  };
+
   useEffect(() => {
-    getdata();
-    fetchData();
+    if (!token) {
+      storageData();
+    } else {
+      getdata();
+    }
   }, []);
 
   let total = 0;
   cart.map((e) => {
     return (total += e.offerPrice);
   });
+
   const handleClick = () => {
     if (localStorage.getItem("myapptoken")) {
       setOpenModal(true);
@@ -48,7 +54,14 @@ function CartItem() {
         <div className="container mt-5 text-center">
           <div className="cartlist-container">
             {cart.map((list) => {
-              return <CartList list={list} cart={cart} getdata={getdata} />;
+              return (
+                <CartList
+                  list={list}
+                  cart={cart}
+                  setCart={setCart}
+                  getdata={getdata}
+                />
+              );
             })}
           </div>
           {cart.length > 0 ? (

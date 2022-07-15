@@ -4,12 +4,22 @@ import { useNavigate, useParams } from "react-router-dom";
 import CartItem from "./CartItem";
 import MobileCart from "./MobileCart";
 import Navbar from "./Navbar";
+import { ToastContainer, toast } from "react-toastify";
 
 function Mobile() {
   let params = useParams();
   let navigate = useNavigate();
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 8000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
+
   const [product, setProduct] = useState([]);
   const [serach, setSerach] = useState("");
+
   let getdata = async () => {
     const { data } = await axios.get(
       `http://localhost:8080/getallProduct?category=${params.id}`
@@ -21,14 +31,17 @@ function Mobile() {
     getdata();
   }, []);
   const [cartitems, setCartItems] = useState([]);
-  const [total, setTotal] = useState(0);
 
   let handleCart = (item) => {
-    console.log(item.offerPrice);
-    console.log(total);
     setCartItems([...cartitems, item]);
-    setTotal(total + item.offerPrice);
+    if (!window.localStorage.getItem("myapptoken")) {
+      toast.success("Added", toastOptions);
+    }
   };
+
+  if (!window.localStorage.getItem("myapptoken")) {
+    localStorage.setItem("cartList", JSON.stringify(cartitems));
+  }
   return (
     <div>
       <Navbar cartitems={[cartitems]} />
@@ -49,17 +62,6 @@ function Mobile() {
           Search
         </button> */}
       </form>
-      <div>
-        <ol class="list-group list-group-numbered">
-          {cartitems.map((item) => {
-            return (
-              <li>
-                <CartItem item={item} />
-              </li>
-            );
-          })}
-        </ol>
-      </div>
       <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
           <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -80,6 +82,7 @@ function Mobile() {
           </div>
         </div>
       </section>
+      <ToastContainer />
     </div>
   );
 }
