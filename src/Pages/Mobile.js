@@ -30,18 +30,24 @@ function Mobile() {
   useEffect(() => {
     getdata();
   }, []);
+
   const [cartitems, setCartItems] = useState([]);
 
   let handleCart = (item) => {
     setCartItems([...cartitems, item]);
-    if (!window.localStorage.getItem("myapptoken")) {
-      toast.success("Added", toastOptions);
-    }
+    localStorage.setItem("cartList", JSON.stringify(cartitems));
+    toast.success("Added", toastOptions);
   };
 
-  if (!window.localStorage.getItem("myapptoken")) {
-    localStorage.setItem("cartList", JSON.stringify(cartitems));
-  }
+  useEffect(() => {
+    let cartlist = localStorage.getItem("cartList");
+    if (cartlist) {
+      setCartItems(JSON.parse(cartlist));
+    }
+  }, []);
+
+  
+
   return (
     <div>
       <Navbar cartitems={[cartitems]} />

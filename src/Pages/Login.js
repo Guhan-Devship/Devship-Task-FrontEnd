@@ -31,7 +31,19 @@ function Login() {
         window.localStorage.setItem("myapptoken", data.data.token);
         window.localStorage.setItem("user", data.data.user.name);
         window.localStorage.setItem("mobile", data.data.user.mobile);
-        navigate("/");
+        let storageData = JSON.parse(localStorage.getItem("cartList"));
+        if (!storageData) {
+          navigate("/");
+        } else {
+          for (var i = 0; i < storageData.length; i++) {
+            axios.post("http://localhost:8080/createCart", storageData[i], {
+              headers: {
+                Authorization: window.localStorage.getItem("myapptoken"),
+              },
+            });
+          }
+          navigate("/");
+        }
       }
     }
   };

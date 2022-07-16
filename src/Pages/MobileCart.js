@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -32,6 +32,7 @@ function MobileCart(props) {
       }
     }
   };
+
   return (
     <div class="col mb-5">
       <div class="card h-100">

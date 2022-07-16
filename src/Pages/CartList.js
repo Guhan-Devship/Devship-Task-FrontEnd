@@ -38,6 +38,13 @@ function CartList(props) {
     }
   };
 
+  let handleRemoveCart = (item) => {
+    let itemIndex = props.cart.findIndex((obj) => item === obj.id);
+    console.log(itemIndex);
+    props.cart.splice(itemIndex, 1);
+    props.setCart([...props.cart]);
+  };
+
   return (
     <>
       <div>
@@ -57,12 +64,21 @@ function CartList(props) {
               className="img-fluid cart-img"
             />
             {/* button to remove item from the cart */}
-            <button
-              class="btn badge bg-danger rounded-pill"
-              onClick={() => handleDelete(props.list._id)}
-            >
-              X
-            </button>
+            {localStorage.getItem("myapptoken") ? (
+              <button
+                class="btn badge bg-danger rounded-pill"
+                onClick={() => handleDelete(props.list._id)}
+              >
+                X
+              </button>
+            ) : (
+              <button
+                class="btn badge bg-danger rounded-pill"
+                onClick={() => handleRemoveCart(props.list._id)}
+              >
+                X
+              </button>
+            )}
           </li>
         </ul>
         <ToastContainer />
