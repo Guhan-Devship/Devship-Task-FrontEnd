@@ -36,13 +36,17 @@ function Login() {
           navigate("/");
         } else {
           for (var i = 0; i < storageData.length; i++) {
-            axios.post("http://localhost:8080/createCart", storageData[i], {
-              headers: {
-                Authorization: window.localStorage.getItem("myapptoken"),
-              },
-            });
+            if (localStorage.getItem("myapptoken")) {
+              axios.post("http://localhost:8080/createCart", storageData[i], {
+                headers: {
+                  Authorization: window.localStorage.getItem("myapptoken"),
+                },
+              });
+              navigate("/");
+            } else {
+              navigate("/");
+            }
           }
-          navigate("/");
         }
       }
     }

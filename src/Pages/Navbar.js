@@ -9,6 +9,7 @@ function Navbar(props) {
     window.localStorage.removeItem("myapptoken");
     window.localStorage.removeItem("user");
     window.localStorage.removeItem("mobile");
+    window.localStorage.clear();
     navigate("/");
   };
 
