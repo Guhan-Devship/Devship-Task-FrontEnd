@@ -42,7 +42,7 @@ function MobileCart(props) {
             In stock
           </div>
         ) : (
-          <div class="badge bg-dark text-white position-absolute sale p-1">
+          <div class="badge bg-dark text-danger position-absolute sale p-1 mt-5 text-center">
             Not Available
           </div>
         )}
@@ -74,6 +74,7 @@ function MobileCart(props) {
           <div class="text-center">
             {localStorage.getItem("myapptoken") ? (
               <button
+                disabled={!props.productData.stockAvailability}
                 class="btn btn-outline-dark mt-auto"
                 onClick={() => handleSubmit()}
               >
@@ -81,6 +82,7 @@ function MobileCart(props) {
               </button>
             ) : (
               <button
+                disabled={!props.productData.stockAvailability}
                 onClick={() => props.handleCart(props.productData)}
                 class="btn btn-outline-dark mt-auto"
               >
