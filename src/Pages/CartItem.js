@@ -9,8 +9,12 @@ function CartItem() {
   let navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
   const [cart, setCart] = useState([]);
+  const [qty, setQty] = useState({
+    quantity: 1,
+  });
   let token = localStorage.getItem("myapptoken");
 
+  //cart List from BackEnd
   let getdata = async () => {
     const { data } = await axios.get("http://localhost:8080/getCart", {
       headers: {
@@ -19,7 +23,7 @@ function CartItem() {
     });
     setCart(data);
   };
-
+  //local storage of add cart before Login
   let storageData = () => {
     if (!token) {
       setCart(JSON.parse(localStorage.getItem("cartList")));
@@ -34,17 +38,59 @@ function CartItem() {
     }
   }, []);
 
+  //total
   let total = 0;
   cart.map((e) => {
-    return (total += e.offerPrice);
+    if (token) return (total += e.offerPrice * e.quantity);
+    total += e.offerPrice;
   });
-
+  //checkout page click function
   const handleClick = () => {
     if (localStorage.getItem("myapptoken")) {
       setOpenModal(true);
     } else {
       navigate("/login");
     }
+  };
+  //increment of quantity
+  const handleIncrement = (cart_id) => {
+    setCart((cart) =>
+      cart.map((item) => {
+        return cart_id === item._id
+          ? {
+              ...item,
+              change: setQty((prevstate) => ({
+                quantity: item.quantity + (item.quantity < 5 ? 1 : 0),
+              })),
+            }
+          : item;
+      })
+    );
+    updateCartQuantity(cart_id);
+  };
+  //Decrement of quantity
+  const handleDecrement = (cart_id) => {
+    console.log(cart_id);
+    setCart((cart) =>
+      cart.map((item) => {
+        return cart_id === item._id
+          ? {
+              ...item,
+              quantity: setQty((prevstate) => ({
+                ...prevstate,
+                quantity: item.quantity - (item.quantity > 1 ? 1 : 0),
+              })),
+            }
+          : item;
+      })
+    );
+    updateCartQuantity(cart_id);
+  };
+
+  //post request for quantity
+  const updateCartQuantity = async (cart_id) => {
+    axios.put(`http://localhost:8080/updateCart/${cart_id}`, qty);
+    getdata();
   };
 
   return (
@@ -60,6 +106,8 @@ function CartItem() {
                   cart={cart}
                   setCart={setCart}
                   getdata={getdata}
+                  handleIncrement={handleIncrement}
+                  handleDecrement={handleDecrement}
                 />
               );
             })}

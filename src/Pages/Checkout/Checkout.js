@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Checkout.css";
 import axios from "axios";
 
-function Checkout({ setOpen, cart, total }) {
+function Checkout({ setOpen, cart, total, count }) {
   let user = localStorage.getItem("user");
   let mobile = localStorage.getItem("mobile");
 
@@ -45,14 +45,20 @@ function Checkout({ setOpen, cart, total }) {
                 <div className="rMax">
                   Max Discount: <b>25%</b>
                 </div>
-                <div className="rPrice">&#x20b9; {item.offerPrice}</div>
+                <div className="rPrice">
+                  &#x20b9; {item.offerPrice} X {item.quantity}
+                </div>
+                <div className="rPrice">
+                  <strong>Total</strong> &#x20b9;{" "}
+                  {item.offerPrice * item.quantity}
+                </div>
               </div>
             </div>
           ))}
         </div>
         <div>
           <p className="text-center mt-5">
-            Total({cart.length}): Rs {total}
+            <h5>Cart Total</h5>({cart.length}): Rs {total}
           </p>
         </div>
         <button className="rButton" onClick={() => handleSubmit()}>

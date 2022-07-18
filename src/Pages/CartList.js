@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import Navbar from "./Navbar";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function CartList(props) {
   let navigate = useNavigate();
+
   function fetchData() {
     if (!localStorage.getItem("myapptoken")) {
       navigate("/login");
@@ -53,12 +54,44 @@ function CartList(props) {
             <div class="ms-2 me-auto">
               {/* item name */}
               <div class="fw-bold">{props.list.title}</div>
-              {/* item price */}Rs {props.list.offerPrice}
+              {/* item price */}
+              {localStorage.getItem("myapptoken") ? (
+                <div>
+                  Rs {props.list.offerPrice} X {props.list.quantity}
+                </div>
+              ) : (
+                <div>Rs {props.list.offerPrice} </div>
+              )}
               <br></br>
               <span class="text-muted text-decoration-line-through">
                 Rs{props.list.price}
               </span>
+              {localStorage.getItem("myapptoken") ? (
+                <div className="d-flex m-3 mx-4">
+                  Qty
+                  <button
+                    className="btn-sm badge bg-secondary rounded-pill mx-2"
+                    onClick={() => props.handleDecrement(props.list._id)}
+                  >
+                    -
+                  </button>
+                  {props.list.quantity}
+                  <button
+                    className="btn-sm badge bg-secondary rounded-pill mx-2"
+                    onClick={() => props.handleIncrement(props.list._id)}
+                  >
+                    +
+                  </button>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
+            {localStorage.getItem("myapptoken") ? (
+              <div>Rs {props.list.offerPrice * props.list.quantity}</div>
+            ) : (
+              <div>Rs {props.list.offerPrice}</div>
+            )}
             <img
               src={`http://localhost:8080/${props.list.image}`}
               className="img-fluid cart-img"

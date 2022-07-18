@@ -37,9 +37,15 @@ function MobileCart(props) {
     <div class="col mb-5">
       <div class="card h-100">
         {/* sale badge */}
-        <div class="badge bg-dark text-white position-absolute sale p-1">
-          Sale
-        </div>
+        {props.productData.stockAvailability ? (
+          <div class="badge bg-dark text-white position-absolute sale p-1">
+            In stock
+          </div>
+        ) : (
+          <div class="badge bg-dark text-white position-absolute sale p-1">
+            Not Available
+          </div>
+        )}
         {/* image */}
         <img
           class="card-img-top rounded"
@@ -57,7 +63,7 @@ function MobileCart(props) {
                 Rs {props.productData.price}
               </span>
               <br></br>
-              <span>
+              <span className="mb-3">
                 <strong>Offer price: Rs {props.productData.offerPrice} </strong>
               </span>
             </div>

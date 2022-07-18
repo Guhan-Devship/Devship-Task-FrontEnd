@@ -42,7 +42,7 @@ function Login() {
                   Authorization: window.localStorage.getItem("myapptoken"),
                 },
               });
-              navigate("/");
+              navigate("/cart");
             } else {
               navigate("/");
             }
