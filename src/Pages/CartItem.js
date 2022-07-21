@@ -7,10 +7,15 @@ import Checkout from "./Checkout/Checkout";
 
 function CartItem() {
   let navigate = useNavigate();
+  let userId = localStorage.getItem("id");
+  let address = localStorage.getItem("address");
+  let shipaddress = localStorage.getItem("Shipaddress");
   const [openModal, setOpenModal] = useState(false);
   const [cart, setCart] = useState([]);
   const [qty, setQty] = useState({
     quantity: 1,
+    customerAddress: address,
+    shipAddress: shipaddress,
   });
   let token = localStorage.getItem("myapptoken");
 
@@ -61,6 +66,8 @@ function CartItem() {
               ...item,
               change: setQty((prevstate) => ({
                 quantity: item.quantity + (item.quantity < 5 ? 1 : 0),
+                customerAddress: address,
+                shipAddress: shipaddress,
               })),
             }
           : item;
@@ -79,6 +86,8 @@ function CartItem() {
               quantity: setQty((prevstate) => ({
                 ...prevstate,
                 quantity: item.quantity - (item.quantity > 1 ? 1 : 0),
+                customerAddress: address,
+                shipAddress: shipaddress,
               })),
             }
           : item;

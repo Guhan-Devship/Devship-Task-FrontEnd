@@ -11,6 +11,9 @@ import ForgotPassword from "./Pages/ForgotPassword";
 import Mobile from "./Pages/Mobile";
 import Search from "./Pages/Search";
 import CartItem from "./Pages/CartItem";
+import Profile from "./Pages/Profile/Profile";
+import NewAddress from "./Pages/Address/NewAddress";
+import NewShipAddress from "./Pages/Address/NewShipAddress";
 
 function App() {
   return (
@@ -24,6 +27,9 @@ function App() {
         <Route path="/view/:id" element={<Mobile />} />
         <Route path="/search" element={<Search />} />
         <Route path="/cart" element={<CartItem />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/address" element={<NewAddress />} />
+        <Route path="/shipaddress" element={<NewShipAddress />} />
       </Routes>
     </BrowserRouter>
   );

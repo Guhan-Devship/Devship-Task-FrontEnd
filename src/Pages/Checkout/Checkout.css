@@ -16,7 +16,7 @@
     position: relative;
   }
   .bill-container{
-    height: 250px;
+    height: 150px;
     width: 450px;
     overflow-y: scroll;
   }
@@ -79,4 +79,7 @@
     border-radius: 5px;
     width: 100%;
     margin-top: 20px;
+  }
+  .address{
+    font-size: 12px;
   }

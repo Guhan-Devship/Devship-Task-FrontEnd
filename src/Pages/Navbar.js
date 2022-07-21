@@ -72,6 +72,13 @@ function Navbar(props) {
                 <div class="dropdown-menu">
                   <a class="dropdown-item">{user}</a>
                   <a class="dropdown-item">{mobile}</a>
+                  <Link to={"/profile"}>
+                    <button className="btn-sm btn-primary mx-4">
+                      <i class="fa fa-pencil" aria-hidden="true">
+                        edit
+                      </i>
+                    </button>
+                  </Link>
                   <div role="separator" class="dropdown-divider"></div>
                   <a class="dropdown-item text-danger" onClick={handleLogout}>
                     Logout

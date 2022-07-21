@@ -9,6 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 function Mobile() {
   let params = useParams();
   let navigate = useNavigate();
+  let address = JSON.parse(localStorage.getItem("address"));
   const toastOptions = {
     position: "bottom-right",
     autoClose: 8000,
@@ -45,8 +46,6 @@ function Mobile() {
       setCartItems(JSON.parse(cartlist));
     }
   }, []);
-
-  
 
   return (
     <div>
