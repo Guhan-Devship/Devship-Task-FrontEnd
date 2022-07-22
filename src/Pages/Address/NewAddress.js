@@ -1,11 +1,19 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import Navbar from "../Navbar";
 
 function NewAddress() {
   let navigate = useNavigate();
+  function fetchData() {
+    if (!localStorage.getItem("myapptoken")) {
+      navigate("/");
+    }
+  }
+  useEffect(() => {
+    fetchData();
+  });
   let userId = localStorage.getItem("id");
   const toastOptions = {
     position: "bottom-right",
@@ -55,7 +63,40 @@ function NewAddress() {
       }
       if (data.data.message === "address added") {
         toast.success("SuccessFully Created", toastOptions);
-        navigate("/profile");
+        // navigate("/profile");
+      }
+      console.log(newaddress);
+    }
+  };
+  const handleSameAddress = async (e) => {
+    e.preventDefault();
+
+    if (handleValidation()) {
+      const { client, address, city, state, country, pincode } = newaddress;
+
+      const data = await axios.post(
+        `http://localhost:8080/createShipAddress/${userId}`,
+        {
+          client,
+          address,
+          city,
+          state,
+          country,
+          pincode,
+        },
+        {
+          headers: {
+            Authorization: window.localStorage.getItem("myapptoken"),
+          },
+        }
+      );
+
+      if (data.data.message !== "address added") {
+        toast.error("something error", toastOptions);
+      }
+      if (data.data.message === "address added") {
+        toast.success("SuccessFully Created", toastOptions);
+        // navigate("/profile");
       }
       console.log(newaddress);
     }
@@ -159,8 +200,11 @@ function NewAddress() {
           Add
         </button>
         <Link to={"/profile"}>
-          <button className="btn-danger btn-sm">cancel</button>
+          <button className="btn-danger btn-sm mx-2">cancel</button>
         </Link>
+        <button className="btn-primary btn-sm " onClick={handleSameAddress}>
+          Set as shippingAddress
+        </button>
         <ToastContainer />
       </div>
     </>

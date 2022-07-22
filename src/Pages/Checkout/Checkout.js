@@ -6,6 +6,11 @@ import { ToastContainer, toast } from "react-toastify";
 import { Alert } from "bootstrap";
 
 function Checkout({ setOpen, cart, total }) {
+  function fetchData() {
+    if (!localStorage.getItem("myapptoken")) {
+      navigate("/login");
+    }
+  }
   const toastOptions = {
     position: "bottom-right",
     autoClose: 8000,
@@ -22,6 +27,9 @@ function Checkout({ setOpen, cart, total }) {
   console.log(billAddress);
   console.log(cart);
 
+  useEffect(() => {
+    fetchData();
+  });
   useEffect(() => {
     axios
       .get(`http://localhost:8080/getAddress/${userId}`, {
@@ -88,53 +96,61 @@ function Checkout({ setOpen, cart, total }) {
           <br></br>
           <span>Mobile: {mobile}</span>
           <div className="row">
-            <div className="col-6">
-              Billing Address
-              {billAddress.map((item) => {
-                if (item.billingAddress === true) {
-                  localStorage.setItem("address", JSON.stringify(item.address));
-                  return (
-                    <p className="address">
-                      {item.address}
-                      <br></br>
-                      {item.city}
-                      <br></br>
-                      {item.state}
-                      <br></br>
-                      {item.pincode}
-                    </p>
-                  );
-                } else {
-                  navigate("/profile");
-                  alert("Set a default address");
-                }
-              })}
-            </div>
-            <div className="col-6">
-              Shipping Address
-              {shipAddress.map((item) => {
-                if (item.shippingAddress === true) {
-                  localStorage.setItem(
-                    "Shipaddress",
-                    JSON.stringify(item.address)
-                  );
-                  return (
-                    <p className="address">
-                      {item.address}
-                      <br></br>
-                      {item.city}
-                      <br></br>
-                      {item.state}
-                      <br></br>
-                      {item.pincode}
-                    </p>
-                  );
-                } else {
-                  navigate("/profile");
-                  alert("Set a default address");
-                }
-              })}
-            </div>
+            {billAddress.filter((value) => value.billingAddress === false)
+              .length > 2 ? (
+              (navigate("/profile"), alert("Error : Set a default Address"))
+            ) : (
+              <div className="col-6">
+                Billing Address
+                {billAddress.map((item) => {
+                  if (item.billingAddress === true) {
+                    localStorage.setItem(
+                      "address",
+                      JSON.stringify(item.address)
+                    );
+                    return (
+                      <p className="address">
+                        {item.address}
+                        <br></br>
+                        {item.city}
+                        <br></br>
+                        {item.state}
+                        <br></br>
+                        {item.pincode}
+                      </p>
+                    );
+                  } else if (item.billingAddress === false) {
+                  }
+                })}
+              </div>
+            )}
+            {shipAddress.filter((value) => value.shippingAddress === false)
+              .length > 2 ? (
+              (navigate("/profile"), alert("Error :Set a default Address"))
+            ) : (
+              <div className="col-6">
+                Shipping Address
+                {shipAddress.map((item) => {
+                  if (item.shippingAddress === true) {
+                    localStorage.setItem(
+                      "Shipaddress",
+                      JSON.stringify(item.address)
+                    );
+                    return (
+                      <p className="address">
+                        {item.address}
+                        <br></br>
+                        {item.city}
+                        <br></br>
+                        {item.state}
+                        <br></br>
+                        {item.pincode}
+                      </p>
+                    );
+                  }
+                })}
+              </div>
+            )}
           </div>
           <div className="bill-container">
             {cart.map((item) => (
@@ -162,11 +178,7 @@ function Checkout({ setOpen, cart, total }) {
             </p>
           </div>
 
-          <button
-            className="rButton"
-            onClick={() => handleSubmit()}
-            disabled={billAddress.length <= 0 || shipAddress.length <= 0}
-          >
+          <button className="rButton" onClick={() => handleSubmit()}>
             paynow
           </button>
         </div>

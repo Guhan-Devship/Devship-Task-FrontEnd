@@ -14,6 +14,7 @@ function CartItem() {
   const [cart, setCart] = useState([]);
   const [qty, setQty] = useState({
     quantity: 1,
+    client: userId,
     customerAddress: address,
     shipAddress: shipaddress,
   });
@@ -66,6 +67,7 @@ function CartItem() {
               ...item,
               change: setQty((prevstate) => ({
                 quantity: item.quantity + (item.quantity < 5 ? 1 : 0),
+                client: userId,
                 customerAddress: address,
                 shipAddress: shipaddress,
               })),

@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from "react";
 import Address from "../Address/Address";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../Navbar";
 import ShippinAddress from "../Address/ShippinAddress";
 
 function Profile() {
+  let navigate = useNavigate();
   let userId = localStorage.getItem("id");
   const [user, setUserData] = useState([]);
   const [userAddress, setUserAddress] = useState([]);
   const [shipAddress, setShipAddress] = useState([]);
+  function checkData() {
+    if (!localStorage.getItem("myapptoken")) {
+      navigate("/");
+    }
+  }
+  useEffect(() => {
+    checkData();
+  });
 
   async function fetchData() {
     let user = await axios.get(`http://localhost:8080/user/${userId}`, {
@@ -29,7 +38,7 @@ function Profile() {
     axios
       .get(`http://localhost:8080/getAddress/${userId}`, {
         headers: {
-          Authorization: window.localStorage.getItem("myhotelapp"),
+          Authorization: window.localStorage.getItem("myapptoken"),
         },
       })
       .then((res) => {
@@ -45,7 +54,7 @@ function Profile() {
     axios
       .get(`http://localhost:8080/getShippingAddress/${userId}`, {
         headers: {
-          Authorization: window.localStorage.getItem("myhotelapp"),
+          Authorization: window.localStorage.getItem("myapptoken"),
         },
       })
       .then((res) => {

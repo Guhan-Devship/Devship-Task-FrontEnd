@@ -32,7 +32,7 @@ function ShippinAddress(props) {
           `http://localhost:8080/deleteShipAddress/${id}/${props.userId}`,
           {
             headers: {
-              Authorization: window.localStorage.getItem("myhotelapp"),
+              Authorization: window.localStorage.getItem("myapptoken"),
             },
           }
         );
